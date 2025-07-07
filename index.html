@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzaic - Indian Media Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="https://imghost.net/ib/ZDfGoExUMZIVn7v_1741425280.png" alt="Music Logo">
+            <h1>Muzaic</h1>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search Indian Music...">
+            <button id="search-btn">
+                <img src="https://imghost.net/ib/b1MVpkkPWFDolTz_1741425787.png" alt="Search Icon">
+            </button>
+        </div>
+
+        <div class="icons">
+            <a href="profile.html" class="home-button">
+                <img src="https://imghost.net/ib/Nueh3eTwF6gcxZD_1741444801.jpg" alt="Profile Icon">
+            </a>
+        </div>
+        
+    </header>
+
+    <nav class="categories">
+        <button onclick="fetchVideos('Bollywood Music')">Bollywood</button>
+        <button onclick="fetchVideos('Anime Songs')">Anime Songs</button>
+        <button onclick="fetchVideos('Indian Cartoons')">Indian Cartoons</button>
+        <button onclick="fetchVideos('Indian TV Shows')">TV Shows</button>
+    </nav>
+
+    <section class="music-section">
+        <h2 id="category-title">Trending Indian Music</h2>
+        <div class="music-grid" id="video-container">
+            <!-- Music videos will load here dynamically -->
+        </div>
+    </section>
+    <script>
+  document.getElementById("search-btn").addEventListener("click", function () {
+    const query = document.getElementById("search").value.trim();
+    if (query) {
+      window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+    }
+  });
+
+  // Optional: Enable "Enter" key to search
+  document.getElementById("search").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      document.getElementById("search-btn").click();
+    }
+  });
+</script>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

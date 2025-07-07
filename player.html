@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzaiac</title>
+    <link rel="stylesheet" href="player.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1a1a1a;
+            padding: 10px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .logo img {
+            width: 40px;
+            margin-right: 10px;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 50%;
+        }
+        .search-bar {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+        .search-bar:focus {
+            width: 80%;
+        }
+        #search-btn {
+            margin-left: 8px;
+            padding: 10px;
+            background: #ff5e00;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #search-btn:hover {
+            background: #ff2e00;
+        }
+        .profile-icon img {
+            width: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        main {
+            display: flex;
+            padding: 20px;
+        }
+        .player-container {
+            flex: 2;
+        }
+        #music-player {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+        }
+        #video-title {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .comments-section {
+            width: 100%;
+            margin-top: 20px;
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        #comment-box {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .comment {
+            display: flex;
+            align-items: center;
+            background: #252525;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 6px;
+        }
+        .comment img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .suggested-section {
+            flex: 1;
+            margin-left: 20px;
+            overflow-y: auto;
+            height: 80vh;
+        }
+        .video-box {
+            cursor: pointer;
+            background: #1a1a1a;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .video-box:hover {
+            transform: scale(1.05);
+        }
+        .video-box img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .video-box p {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        button {
+            padding: 10px;
+            background: #ff5e00;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #ff2e00;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="https://imghost.net/ib/ZDfGoExUMZIVn7v_1741425280.png" alt="Music Logo">
+            <span>Muzaiac</span>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-bar" class="search-bar" placeholder="Search music...">
+            <button id="search-btn">🔍</button>
+        </div>
+        <div class="profile-icon">
+            <img src="https://imghost.net/ib/Nueh3eTwF6gcxZD_1741444801.jpg" alt="Profile Icon">
+        </div>
+    </header>
+
+    <main>
+        <div class="player-container">
+            <iframe id="music-player" allowfullscreen></iframe>
+            <h2 id="video-title">Loading...</h2>
+            <div class="comments-section">
+                <h2>Comments</h2>
+                <textarea id="comment-box" placeholder="Write a comment..."></textarea>
+                <button onclick="postComment()">Post</button>
+                <div id="comment-list"></div>
+            </div>
+        </div>
+
+        <div class="suggested-section">
+            <h3>Suggested Music</h3>
+            <div id="suggested-music"></div>
+        </div>
+    </main>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let videoId = urlParams.get("videoId") || "dQw4w9WgXcQ"; // Default video
+        let title = decodeURIComponent(urlParams.get("title") || "Trending Music");
+        const player = document.getElementById("music-player");
+        const videoTitle = document.getElementById("video-title");
+
+        function loadVideo(videoId, title) {
+            player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            videoTitle.innerText = title;
+        }
+
+        async function fetchSuggestedMusic() {
+            const API_KEY = "AIzaSyD3svQLY6NZy8b_0z1mQIemOQwG1mup9dc";
+            const API_URL = `https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=IN&maxResults=20&key=${API_KEY}`;
+            
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                displaySuggestedMusic(data.items);
+            } catch (error) {
+                console.error("Error fetching suggested music:", error);
+            }
+        }
+
+        function displaySuggestedMusic(videos) {
+            const container = document.getElementById("suggested-music");
+            container.innerHTML = "";
+
+            videos.forEach(video => {
+                const videoBox = document.createElement("div");
+                videoBox.classList.add("video-box");
+                videoBox.innerHTML = `
+                    <img src="${video.snippet.thumbnails.medium.url}" 
+                        alt="${video.snippet.title}" 
+                        onclick="loadVideo('${video.id}', '${video.snippet.title}')">
+                    <p>${video.snippet.title}</p>
+                `;
+                container.appendChild(videoBox);
+            });
+        }
+
+        document.getElementById("search-btn").addEventListener("click", async () => {
+            const query = document.getElementById("search-bar").value.trim();
+            if (!query) return;
+            const API_KEY = "AIzaSyAY9kHD1xecO-tZ-vEZF9FYPlnir__28h0";
+            const searchURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&maxResults=1&key=${API_KEY}`;
+            const response = await fetch(searchURL);
+            const data = await response.json();
+            if (data.items.length > 0) {
+                loadVideo(data.items[0].id.videoId, data.items[0].snippet.title);
+            }
+        });
+
+        loadVideo(videoId, title);
+        fetchSuggestedMusic();
+    </script>
+
+</body>
+</html>
+
+

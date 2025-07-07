@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results - Muzaic</title>
+  <link rel="stylesheet" href="search.css"/>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="https://imghost.net/ib/ZDfGoExUMZIVn7v_1741425280.png" alt="Muzaic Logo"/>
+        <h1>Muzaic</h1>
+      </a>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="search" placeholder="Search Indian Music..."/>
+      <button id="search-btn">
+        <img src="https://imghost.net/ib/b1MVpkkPWFDolTz_1741425787.png" alt="Search Icon"/>
+      </button>
+    </div>
+
+    <div class="icons">
+      <a href="profile.html"><img src="https://imghost.net/ib/Nueh3eTwF6gcxZD_1741444801.jpg" alt="Profile Icon"/></a>
+    </div>
+  </header>
+
+  <main>
+    <h2 id="results-title">Results for: </h2>
+<div class="video-card sponsored" onclick="window.open('https://youtube.com/kamalmarwadimehandiwale', '_blank')">
+  <div class="thumbnail-wrapper">
+    <img class="thumbnail" src="https://firebasestorage.googleapis.com/v0/b/file-storage-app-d5a61.appspot.com/o/NT2wbyds9hk-MQ.jpg?alt=media&token=3abb7760-0045-44dc-b084-1696eace40c8" alt="Sponsored Video">
+    <div class="duration">1:00</div>
+    <div class="sponsored-tag">Sponsored</div>  <!-- Small red badge -->
+  </div>
+  <div class="video-info">
+    <h3 class="video-title">Amazing Deal! 🎉</h3>
+    <p class="channel-name">Kamal Marwadi Mehndi Wale</p>
+    <p class="views">Ad · <a href="https://youtube.com/kamalmarwadimehandiwale" target="_blank" rel="noopener noreferrer">Learn More</a></p>
+  </div>
+</div>
+
+
+
+
+    <div id="video-container" class="music-grid"></div>
+  </main>
+
+  <script>
+    const API_KEY = "AIzaSyAY9kHD1xecO-tZ-vEZF9FYPlnir__28h0";
+    const videoContainer = document.getElementById("video-container");
+    const resultsTitle = document.getElementById("results-title");
+
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("q");
+
+    document.getElementById("search").value = query || "";
+
+    // Handle search again
+    document.getElementById("search-btn").addEventListener("click", function () {
+      const newQuery = document.getElementById("search").value.trim();
+      if (newQuery) {
+        window.location.href = `search.html?q=${encodeURIComponent(newQuery)}`;
+      }
+    });
+
+    document.getElementById("search").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        document.getElementById("search-btn").click();
+      }
+    });
+
+    // Fetch from YouTube API
+    async function fetchVideos(query) {
+      const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&regionCode=IN&videoDuration=long&maxResults=30&key=${API_KEY}`;
+      
+      try {
+        resultsTitle.innerText = `Results for: ${query}`;
+        let response = await fetch(API_URL);
+        let data = await response.json();
+
+        if (data.error) {
+          throw new Error(`API Error: ${data.error.message}`);
+        }
+
+        videoContainer.innerHTML = ""; // Clear previous results
+
+        data.items.forEach(video => {
+          const videoElement = document.createElement("div");
+          videoElement.classList.add("video-card");
+         videoElement.innerHTML = `
+  <div class="thumbnail-wrapper">
+    <img class="thumbnail" src="${video.snippet.thumbnails.medium.url}" alt="${video.snippet.title}">
+    <span class="duration">LIVE</span>
+  </div>
+  <div class="video-info">
+    <h3 class="video-title">${video.snippet.title}</h3>
+    <p class="channel-name">${video.snippet.channelTitle}</p>
+    <p class="views">• ${new Date(video.snippet.publishedAt).toLocaleDateString()}</p>
+  </div>
+`;
+
+          videoElement.addEventListener("click", () => {
+            window.location.href = `player.html?videoId=${video.id.videoId}`;
+          });
+
+          videoContainer.appendChild(videoElement);
+        });
+
+        autoScroll();
+      } catch (error) {
+        console.error("Error loading videos:", error);
+        videoContainer.innerHTML = `<p class="error">Error loading results. Please try again later. 🚨</p>`;
+      }
+    }
+
+    function autoScroll() {
+      let scrollAmount = 0;
+      const scrollStep = 1;
+      const scrollInterval = 50;
+
+      function scroll() {
+        if (scrollAmount < videoContainer.scrollHeight) {
+          videoContainer.scrollBy(0, scrollStep);
+          scrollAmount += scrollStep;
+          setTimeout(scroll, scrollInterval);
+        } else {
+          scrollAmount = 0;
+          videoContainer.scrollTo(0, 0);
+          setTimeout(scroll, 2000);
+        }
+      }
+      scroll();
+    }
+
+    // Initial load if query is present
+    if (query) {
+      fetchVideos(query);
+    }
+    
+  </script>
+  
+</body>
+</html>

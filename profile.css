@@ -1,0 +1,173 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    transition: 0.3s ease;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Light Mode */
+body.light-mode {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+/* Home Header */
+.home-header {
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    padding: 15px;
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 400px;
+    margin: auto;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+/* Light Mode Profile */
+body.light-mode .profile-container {
+    background: #f0f0f0;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Profile Info */
+.profile-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+#edit-name {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 5px;
+    color: gold;
+}
+
+.upgrade-btn {
+    background: gold;
+    color: black;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Profile Menu */
+.profile-menu {
+    margin-top: 20px;
+}
+
+.menu-item {
+    background: #333;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+body.light-mode .menu-item {
+    background: #ddd;
+}
+
+.no-logout {
+    font-size: 1.2rem;
+    color: red;
+    margin-top: 20px;
+}
+/* Updated Custom Header */
+.custom-header {
+    background: black;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.home-button img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+/* Updated Custom Header */
+.custom-header {
+    background: black;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.header-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 90px;
+    margin-right: 10px;
+}
+
+.home-button img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}

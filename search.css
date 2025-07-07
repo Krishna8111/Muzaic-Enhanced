@@ -1,0 +1,284 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff;
+  color: #0f0f0f;
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  color: #ff0000;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 24px 0 0 24px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-container button {
+  padding: 9px 14px;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-left: none;
+  border-radius: 0 24px 24px 0;
+  cursor: pointer;
+}
+
+.search-container button img {
+  height: 20px;
+}
+
+.icons img {
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+/* Results Title */
+#results-title {
+  margin: 20px;
+  font-size: 20px;
+  color: #111;
+}
+
+/* Video Grid */
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Video Card */
+.video-card {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Thumbnail */
+.thumbnail-wrapper {
+  position: relative;
+}
+
+.thumbnail {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Duration Tag */
+.duration {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Info Below Thumbnail */
+.video-info {
+  padding: 12px;
+}
+
+.video-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #0f0f0f;
+}
+
+.channel-name {
+  font-size: 14px;
+  color: #606060;
+  margin-bottom: 4px;
+}
+
+.views {
+  font-size: 12px;
+  color: #909090;
+}
+
+/* Error */
+.error {
+  padding: 20px;
+  color: red;
+  text-align: center;
+  font-weight: bold;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff0000;
+  letter-spacing: -1px;
+  margin: 0;
+}
+/* Sponsored Video Card - keep full card size but smaller thumbnail */
+.video-card.sponsored .thumbnail-wrapper {
+  display: flex;
+  justify-content: left; /* center smaller thumbnail */
+  padding: 12px 0; /* vertical spacing */
+  background-color: #fff; /* optional to highlight difference */
+}
+
+.video-card.sponsored .thumbnail {
+  width: 30%;   /* smaller thumbnail width */
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Adjust duration and sponsored tag positions if needed */
+.video-card.sponsored .duration,
+.video-card.sponsored .sponsored-tag {
+  position: absolute;
+  top: 8px;
+  left: auto;
+  right: 8px;
+  background-color: rgba(255, 0, 0, 0.85);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  user-select: none;
+  pointer-events: none;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+/* If duration and sponsored tag overlap, you can adjust their positions: */
+.video-card.sponsored .duration {
+  right: 8px;
+  top: auto;
+  bottom: 8px;
+}
+
+.video-card.sponsored .sponsored-tag {
+  top: 8px;
+  left: 8px;
+  right: auto;
+}
+/* Sponsored Tag */
+.sponsored-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(255, 0, 0, 0.85);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  color: #3b3636;
+  font-weight: 700;
+  user-select: none;
+  pointer-events: none;
+  text-transform: uppercase;
+}/* Override: make sponsored thumbnail full width like other videos */
+.video-card.sponsored .thumbnail {
+  width: 30% !important;
+  height: auto;
+  border-radius: 0; /* same as others */
+  object-fit: cover;
+}
+
+/* Also remove the smaller thumbnail-wrapper flex styling */
+.video-card.sponsored .thumbnail-wrapper {
+  display: block !important; /* revert from flex */
+  padding: 0 !important;
+  background-color: transparent !important;
+}
+/* Sponsored + Grid wrapper */
+.music-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Sponsored container: fixed width column */
+.sponsored-slot {
+  flex: 0 0 320px;
+}
+
+/* Video grid fills remaining space */
+.music-layout .music-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0; /* already padded in .music-layout */
+}

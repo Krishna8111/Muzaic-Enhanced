@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: white;
+    color: black;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #f1f1f1;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+#search-btn {
+    padding: 8px 15px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 20px;
+}
+
+.profile-icon img {
+    width: 20px;
+    border-radius: 50%;
+}
+
+/* MAIN CONTAINER */
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+/* VIDEO SECTION */
+.video-section {
+    flex: 3;
+    border: 2px solid rgb(255, 255, 255);
+    padding: 10px;
+    text-align: center;
+    min-height: 300px;
+    min-width: 200px;
+    border-radius: 30px;
+}
+
+#video-player {
+    width: 210%;
+    height: 340px;
+    border-radius: 30px;
+}
+
+/* COMMENTS SECTION */
+.comments-section {
+    border: 2px solid black;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.comments-section input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid black;
+}
+
+.comments-section button {
+    padding: 8px 15px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* SUGGESTED MUSIC */
+.suggested-music {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 350px;
+}
+
+.music-box {
+    width: 48%;
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.music-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.video-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
